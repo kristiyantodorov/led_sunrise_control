@@ -1,9 +1,21 @@
 from datetime import timezone, date, datetime
 from astral import Astral
+import time
 
 class LedChanger():
     def __init__(self):
         self.initialize()
+        self.value_list = [
+            "#000000",
+            "#1F1F1F",
+            "#3F3F3F",
+            "#5F5F5F",
+            "#7F7F7F",
+            "#9F9F9F",
+            "#BFBFBF",
+            "#DFDFDF",
+            "#FFFFFF",
+        ]
 
     def initialize(self):
         self.city_name = 'Sofia'
@@ -26,14 +38,22 @@ class LedChanger():
         print
         print("The time now is: {}".format(datetime.now()))
 
-    def daylight(self):
+    def time_to_daylight(self):
         now = datetime.now(timezone.utc)
         sunrise = self.sun_info['sunrise']
-        print(now < sunrise)
+        sunset = self.sun_info['sunset']
+        return (now-sunrise).seconds # get the seconds from the timedelta
+
+    def loop(self):
+        after_midnight = False
+        while True:
+            if self.time_to_daylight() > 0 and self.time_to_daylight() < : # Awaiting sunrise
 
 
+            time.sleep(1)
 
 if __name__ == '__main__':
     lc = LedChanger()
     # lc.print_info()
-    lc.daylight()
+    lc.time_to_daylight()
+    lc.loop()
